@@ -1,20 +1,25 @@
-<?php
+<?php include_once 'baseDatosModel.php';
 
     function RegistrarUsuario()
     {
-        //Abrir Connection String
+        $conexion = AbrirBaseDatos();
 
         //Registrar el usuario
 
-        //Cerrar Connection String
+        CerrarBaseDatos($conexion);
 
         //Return Respuesta
     }
 
+    function IniciarSesion()
+    {
+        $conexion = AbrirBaseDatos();
 
+        //Validar el usuario
 
+        CerrarBaseDatos($conexion);
 
-
-
+        //Return Respuesta
+    }
 
 ?>
