@@ -1,25 +1,33 @@
 <?php include_once 'baseDatosModel.php';
 
-    function RegistrarUsuario()
+    function RegistrarUsuario($Identificacion,$Nombre,$Email,$Password)
     {
         $conexion = AbrirBaseDatos();
-
-        //Registrar el usuario
-
+        $sentencia = "CALL RegistrarUsuario('$Identificacion','$Nombre','$Email','$Password')";
+        $respuesta = $conexion -> query($sentencia);
         CerrarBaseDatos($conexion);
 
-        //Return Respuesta
+        return $respuesta;
     }
 
-    function IniciarSesion()
+    function EPUsuario($Email,$Password)
     {
         $conexion = AbrirBaseDatos();
+        $sentencia = "CALL IniciarSesion('$Email','$Password')";
+        $respuesta = $conexion -> query($sentencia);
+        CerrarBaseDatos($conexion);
+        
+        return $respuesta;
+    }
 
-        //Validar el usuario
-
+    function RecuperarAcceso($Email)
+    {
+        $conexion = AbrirBaseDatos();
+        $sentencia = "CALL RecuperarAcceso('$Email')";
+        $respuesta = $conexion -> query($sentencia);
         CerrarBaseDatos($conexion);
 
-        //Return Respuesta
+        return $respuesta;
     }
 
 ?>
