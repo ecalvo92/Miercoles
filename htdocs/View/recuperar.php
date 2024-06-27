@@ -33,11 +33,11 @@
 
                 <form action="" method="post">
                     <div class="input-group mb-3">
-                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" 
-                        placeholder="Correo Electrónico" required>
+                    <input id="txtIdentificacion" name="txtIdentificacion" type="text" class="form-control"
+                            placeholder="Identificación" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>

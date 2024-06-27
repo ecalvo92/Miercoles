@@ -1,12 +1,12 @@
 <?php
 
-function EnviarCorreo($asunto,$cuerpo,$destinatario)
+function EnviarCorreo($asunto,$contenido,$destinatario)
 {
-    require '../PHPMailer/src/PHPMailer.php';
-    require '../PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/PHPMailer.php';
+    require 'PHPMailer/src/SMTP.php';
 
-    $correoSalida = "****@hotmail.com";
-    $contrasennaSalida = "*****";
+    $correoSalida = "clasesphp@outlook.com";
+    $contrasennaSalida = "phpclases2024*";
 
     $mail = new PHPMailer();
     $mail -> CharSet = 'UTF-8';
@@ -22,10 +22,21 @@ function EnviarCorreo($asunto,$cuerpo,$destinatario)
     
     $mail -> SetFrom($correoSalida);
     $mail -> Subject = $asunto;
-    $mail -> MsgHTML($cuerpo);   
+    $mail -> MsgHTML($contenido);   
     $mail -> AddAddress($destinatario);
 
     $mail -> send();
+}
+
+function GenerarCodigo() {
+    $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array();
+    $alphaLength = strlen($alphabet) - 1;
+    for ($i = 0; $i < 6; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass);
 }
 
 ?>

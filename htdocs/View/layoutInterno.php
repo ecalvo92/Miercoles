@@ -1,5 +1,9 @@
 <?php
 
+    if(session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     function MostrarMenu()
     {
       echo '
@@ -13,43 +17,23 @@
         </a>
     
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
-            </div>
-            </div>
-    
+   
             <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
-                    Dashboard
+                    Mantenimientos
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                    <a href="../../index.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Dashboard v1</p>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="../../index2.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Dashboard v2</p>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="../../index3.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Dashboard v3</p>
-                    </a>
+                        <a href="consultarUsuarios.php" class="nav-link">
+                            <i class="fa fa-users nav-icon"></i>
+                            <p>Usuarios</p>
+                        </a>
                     </li>
                 </ul>
                 </li>
@@ -82,32 +66,24 @@
             </form>
         
             <ul class="navbar-nav ml-auto">
-            
+             <div class="form-inline ml-3">' . $_SESSION["NombreUsuario"] . '</div>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <i class="far fa-user"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
+                    <i class="fas fa-envelope mr-2"></i> Perfil
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
+                    <i class="fas fa-users mr-2"></i> Seguridad
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
+                    <i class="fas fa-file mr-2"></i> Salir
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
             </li>
             </ul>
         </nav>
