@@ -33,6 +33,7 @@
         {
             $datos = mysqli_fetch_array($respuesta);
             $_SESSION["NombreUsuario"] = $datos["Nombre"];
+            $_SESSION["ConsecutivoUsuario"] = $datos["Consecutivo"];
             header("location: ../View/home.php");
         }
         else
@@ -77,7 +78,8 @@
 
     function ConsultarUsuarios()
     {
-        $respuesta = ConsultarUsuariosBD();
+        $ConsecutivoLogueado = $_SESSION["ConsecutivoUsuario"];
+        $respuesta = ConsultarUsuariosBD($ConsecutivoLogueado);
 
         if($respuesta -> num_rows > 0)
         {
@@ -87,9 +89,36 @@
                 echo "<td>" . $row["Identificacion"] . "</td>";
                 echo "<td>" . $row["Nombre"] . "</td>";
                 echo "<td>" . $row["Correo"] . "</td>";
+                echo "<td>" . $row["NombreEstado"] . "</td>";
                 echo "<td>" . $row["NombreRol"] . "</td>";
+                echo '<td>
+                        <button type="button" class="btn btn-primary AbrirModal" data-toggle="modal" data-target="#ModalUsuarios" 
+                        data-id=' . $row["Consecutivo"] . ' data-name="' . $row["Nombre"] . '">
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <a href="actualizarUsuario.php" class="btn btn-primary">
+                            <i class="fa fa-user"></i>
+                        </a>
+
+                     </td>';
                 echo "</tr>";
             }
+        }
+    }
+
+    if(isset($_POST["btnCambiarEstadoUsuario"]))
+    {
+        $Consecutivo = $_POST["txtConsecutivo"];
+        $respuesta = CambiarEstadoUsuario($Consecutivo);
+
+        if($respuesta == true)
+        {
+            header("location: ../View/consultarUsuarios.php");
+        }
+        else
+        {
+            $_POST["msj"] = "No se ha podido inactivar la información del usuario.";
         }
     }
 

@@ -8,7 +8,7 @@
     {
       echo '
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="../../index3.html" class="brand-link">
+        <a href="home.php" class="brand-link">
             <img src="dist/img/AdminLTELogo.png"
                 alt="AdminLTE Logo"
                 class="brand-image img-circle elevation-3"
@@ -81,8 +81,9 @@
                     <i class="fas fa-users mr-2"></i> Seguridad
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> Salir
+
+                <a onclick="CerrarSesion();" class="dropdown-item">
+                     <i class="fas fa-file mr-2"></i> Salir
                 </a>
             </li>
             </ul>
@@ -90,4 +91,30 @@
       ';
     }
 
+    function HeadCSS()
+    {
+        echo '<head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <title>Sistema Web</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+                <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+                <link rel="stylesheet" href="dist/css/adminlte.min.css">
+                <link rel="stylesheet" href="dist/css/styles.css">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
+                <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.css">
+            </head>
+        ';
+    }
+
 ?>
+
+<script>
+
+function CerrarSesion()
+{
+    alert("HOLA");
+}
+
+</script>

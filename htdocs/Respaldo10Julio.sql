@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `miercoles_bd` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `miercoles_bd`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: miercoles_bd
@@ -62,7 +60,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `Correo` (`Correo`),
   KEY `fk_Rol` (`IdRol`),
   CONSTRAINT `fk_Rol` FOREIGN KEY (`IdRol`) REFERENCES `rol` (`IdRol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +69,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'304590415','CALVO CASTILLO EDUARDO JOSE','ecalvo90415@ufide.ac.cr','90415',_binary '',1,_binary '\0'),(3,'118790444','COLLADO BLANCO ANTONY JOSUE','acollado90444@ufide.ac.cr','EGXV5W',_binary '',1,_binary '');
+INSERT INTO `usuario` VALUES (2,'304590415','CALVO CASTILLO EDUARDO JOSE','ecalvo90415@ufide.ac.cr','E5EAC6',_binary '',1,_binary ''),(3,'118790444','COLLADO BLANCO ANTONY JOSUE','acollado90444@ufide.ac.cr','EGXV5W',_binary '',1,_binary ''),(4,'119270307','VARGAS RODRIGUEZ ROBERTO FERNANDO','rvargas70307@ufide.ac.cr','70307',_binary '',1,_binary '\0'),(5,'155828284810','DAVILA MENDEZ BRYAN ANDRES','bdavila28481@ufide.ac.cr','28481',_binary '',1,_binary '\0');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,6 +104,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `CambiarEstadoUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CambiarEstadoUsuario`(`pConsecutivo` INT)
+BEGIN
+
+	/*DELETE FROM usuario WHERE Consecutivo = pConsecutivo;*/
+
+	UPDATE USUARIO
+    SET Estado = CASE WHEN Estado = 1 THEN 0 ELSE 1 END
+    WHERE Consecutivo = pConsecutivo;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ConsultarUsuarios` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -116,7 +139,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarUsuarios`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarUsuarios`(`pConsecutivo` INT)
 BEGIN
 
 	SELECT  `Consecutivo`,
@@ -125,9 +148,11 @@ BEGIN
 			`Correo`,
 			`Estado`,
 			U.`IdRol`,
-            R.`NombreRol`
+            R.`NombreRol`,
+            CASE WHEN `Estado` = 1 THEN 'Activo' ELSE 'Inactivo' END 'NombreEstado'
 	FROM 	`miercoles_bd`.`usuario` U
-    INNER JOIN `miercoles_bd`.`rol` R ON U.IdRol = R.IdRol;
+    INNER JOIN `miercoles_bd`.`rol` R ON U.IdRol = R.IdRol
+    WHERE `Consecutivo` <> `pConsecutivo`;
 
 END ;;
 DELIMITER ;
@@ -224,4 +249,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-26 21:13:12
+-- Dump completed on 2024-07-10 22:33:44

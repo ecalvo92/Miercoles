@@ -1,4 +1,6 @@
-<?php include_once 'layoutInterno.php'; ?>
+<?php include_once 'layoutInterno.php';
+      include_once '../Controller/usuarioController.php'; 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +19,14 @@
 
         <div class="content-wrapper">
             <section class="content">
+
+                <?php
+                    if(isset($_POST["msj"]))
+                    {
+                        echo '<div class="alert alert-info TextoCentrado">' . $_POST["msj"] . '</div>';
+                    }
+                ?>
+
             </section>
         </div>
 
@@ -31,6 +41,12 @@
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
+    <script>
+        $(document).on("click",".AbrirModal", function(){
+            $("#lblNombre").text($(this).attr('data-name'));
+            $("#txtConsecutivo").val($(this).attr('data-id'));
+        });
+    </script>
 </body>
 
 </html>

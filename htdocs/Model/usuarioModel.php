@@ -36,10 +36,19 @@
         return $respuesta;
     }
 
-    function ConsultarUsuariosBD()
+    function ConsultarUsuariosBD($ConsecutivoLogueado)
     {
         $conexion = AbrirBaseDatos();
-        $sentencia = "CALL ConsultarUsuarios()";
+        $sentencia = "CALL ConsultarUsuarios('$ConsecutivoLogueado')";
+        $respuesta = $conexion -> query($sentencia);
+        CerrarBaseDatos($conexion);
+        return $respuesta;
+    }
+
+    function CambiarEstadoUsuario($Consecutivo)
+    {
+        $conexion = AbrirBaseDatos();
+        $sentencia = "CALL CambiarEstadoUsuario('$Consecutivo')";
         $respuesta = $conexion -> query($sentencia);
         CerrarBaseDatos($conexion);
         return $respuesta;

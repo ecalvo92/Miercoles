@@ -5,16 +5,9 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Blank Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
-</head>
+<?php 
+    HeadCSS();
+?>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -27,21 +20,44 @@
         <div class="content-wrapper">
             <section class="content">
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Identificación</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Rol</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            ConsultarUsuarios();
-                        ?>
-                    </tbody>
-                </table>
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <h1 class="m-0 text-dark">Consulta de usuarios</h1>
+                                <br/>
+
+                                <?php
+                                    if(isset($_POST["msj"]))
+                                    {
+                                        echo '<div class="alert alert-info TextoCentrado">' . $_POST["msj"] . '</div>';
+                                    }
+                                ?>
+
+                                <table id="tablaUsuarios" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Identificación</th>
+                                            <th>Nombre</th>
+                                            <th>Correo</th>
+                                            <th>Estado</th>
+                                            <th>Rol</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            ConsultarUsuarios();
+                                        ?>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </section>
         </div>
@@ -54,9 +70,53 @@
         </aside>
     </div>
 
+    <div class="modal fade" id="ModalUsuarios" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:600px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" id="txtConsecutivo" name="txtConsecutivo">
+                        ¿Desea cambiar el estado del usuario <label id="lblNombre"></label> ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnCambiarEstadoUsuario"
+                            name="btnCambiarEstadoUsuario">Procesar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
+
+    <script>
+        $(document).on("click", ".AbrirModal", function() {
+            $("#lblNombre").text($(this).attr('data-name'));
+            $("#txtConsecutivo").val($(this).attr('data-id'));
+        });
+
+        $(document).ready(function(){
+            $("#tablaUsuarios").DataTable({
+                language : {
+                    url: 'dist/language.json'
+                }
+            });
+        });
+    </script>
+    
 </body>
 
 </html>
