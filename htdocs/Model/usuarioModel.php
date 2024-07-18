@@ -54,4 +54,22 @@
         return $respuesta;
     }
 
+    function ConsultarUsuarioBD($Consecutivo)
+    {
+        $conexion = AbrirBaseDatos();
+        $sentencia = "CALL ConsultarUsuario('$Consecutivo')";
+        $respuesta = $conexion -> query($sentencia);
+        CerrarBaseDatos($conexion);
+        return $respuesta;
+    }
+
+    function ActualizarUsuario($Consecutivo,$Identificacion,$pNombre,$Correo,$IdRol)
+    {
+        $conexion = AbrirBaseDatos();
+        $sentencia = "CALL ActualizarUsuario('$Consecutivo','$Identificacion','$pNombre','$Correo','$IdRol')";
+        $respuesta = $conexion -> query($sentencia);
+        CerrarBaseDatos($conexion);
+        return $respuesta;
+    }
+
 ?>

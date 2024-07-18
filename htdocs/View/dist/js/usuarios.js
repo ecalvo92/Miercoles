@@ -1,6 +1,6 @@
-function ConsultarNombre()
+function ConsultarNombre(nombreBoton)
 {
-    document.getElementById("btnRegistrarUsuario").disabled = true;
+    document.getElementById(nombreBoton).disabled = true;
     let identificacion =  document.getElementById("txtIdentificacion").value;
 
     if(identificacion.length >= 9)
@@ -12,7 +12,7 @@ function ConsultarNombre()
             success: function(data){
                 if(data.resultcount > 0)
                 {
-                    document.getElementById("btnRegistrarUsuario").disabled = false;
+                    document.getElementById(nombreBoton).disabled = false;
                     document.getElementById("txtNombre").value = data.nombre;
                 }
                 else

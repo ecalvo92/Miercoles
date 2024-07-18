@@ -1,5 +1,7 @@
 <?php include_once 'layoutInterno.php';
       include_once '../Controller/usuarioController.php'; 
+
+      $datos = ConsultarUsuario($_GET["q"]);
 ?>
 
 <!DOCTYPE html>
@@ -20,12 +22,85 @@
         <div class="content-wrapper">
             <section class="content">
 
-                <?php
-                    if(isset($_POST["msj"]))
-                    {
-                        echo '<div class="alert alert-info TextoCentrado">' . $_POST["msj"] . '</div>';
-                    }
-                ?>
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <h1 class="m-0 text-dark">Datos del usuario</h1>
+                        <br />
+                        <div class="row mb-2">
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-8">
+
+                                <?php
+                                    if(isset($_POST["msj"]))
+                                    {
+                                        echo '<div class="alert alert-info TextoCentrado">' . $_POST["msj"] . '</div>';
+                                    }
+                                ?>
+
+                                <form action="" method="post">
+
+                                    <input id="txtConsecutivo" name="txtConsecutivo" type="hidden" value="<?php echo $datos["Consecutivo"] ?>">
+
+                                    <Label>Identificación</Label>
+                                    <div class="input-group mb-3">
+                                        <input id="txtIdentificacion" name="txtIdentificacion" type="text"
+                                            class="form-control" placeholder="Identificación"
+                                            onkeyup="ConsultarNombre('btnActualizarUsuario');" required
+                                            value="<?php echo $datos["Identificacion"] ?>">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-user"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <Label>Nombre</Label>
+                                    <div class="input-group mb-3">
+                                        <input id="txtNombre" name="txtNombre" type="text" readOnly class="form-control"
+                                            placeholder="Nombre" required value="<?php echo $datos["Nombre"] ?>">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-user"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <Label>Correo Ellectrónico</Label>
+                                    <div class="input-group mb-3">
+                                        <input type="email" id="txtEmail" name="txtEmail" class="form-control"
+                                            placeholder="Correo Electrónico" required
+                                            value="<?php echo $datos["Correo"] ?>">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-envelope"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <Label>Perfil</Label>
+                                    <div class="input-group mb-3">
+                                        <select id="selectRol" name="selectRol" class="form-control" required>
+                                            <option value="1">Usuario</option>
+                                            <option value="2">Administrador</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-9">
+
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-6">
+                                            <button type="submit" id="btnActualizarUsuario" name="btnActualizarUsuario"
+                                                class="btn btn-primary btn-block">Procesar</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </section>
         </div>
@@ -41,11 +116,13 @@
     <?php 
         HeadJS();
     ?>
+    <script src="dist/js/usuarios.js"></script>
     <script>
-        $(document).on("click",".AbrirModal", function(){
-            $("#lblNombre").text($(this).attr('data-name'));
-            $("#txtConsecutivo").val($(this).attr('data-id'));
-        });
+    $(document).on("click", ".AbrirModal", function() {
+        $("#lblNombre").text($(this).attr('data-name'));
+        $("#txtConsecutivo").val($(this).attr('data-id'));
+    });
     </script>
 </body>
+
 </html>

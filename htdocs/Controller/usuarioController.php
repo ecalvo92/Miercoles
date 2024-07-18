@@ -98,13 +98,22 @@
                             <i class="fa fa-edit"></i>
                         </button>
 
-                        <a href="actualizarUsuario.php" class="btn btn-primary">
+                        <a href="actualizarUsuario.php?q=' . $row["Consecutivo"] . '" class="btn btn-primary">
                             <i class="fa fa-user"></i>
                         </a>
 
                      </td>';
                 echo "</tr>";
             }
+        }
+    }
+
+    function ConsultarUsuario($Consecutivo)
+    {
+        $respuesta = ConsultarUsuarioBD($Consecutivo);
+        if($respuesta -> num_rows > 0)
+        {
+            return mysqli_fetch_array($respuesta);
         }
     }
 
@@ -129,5 +138,15 @@
         header("location: ../View/login.php");
     }
 
+    if(isset($_POST["btnActualizarUsuario"]))
+    {
+        $Consecutivo = $_POST["txtConsecutivo"];
+        $Identificacion = $_POST["txtIdentificacion"];
+        $pNombre = $_POST["txtNombre"];
+        $Correo = $_POST["txtEmail"];
+        $IdRol = $_POST["selectRol"];
+
+        ActualizarUsuario($Consecutivo,$Identificacion,$pNombre,$Correo,$IdRol);
+    }
 
 ?>
