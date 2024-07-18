@@ -38,9 +38,9 @@
         </aside>
     </div>
 
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="dist/js/adminlte.min.js"></script>
+    <?php 
+        HeadJS();
+    ?>
     <script>
         $(document).on("click",".AbrirModal", function(){
             $("#lblNombre").text($(this).attr('data-name'));
@@ -48,5 +48,4 @@
         });
     </script>
 </body>
-
 </html>

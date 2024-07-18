@@ -1,4 +1,5 @@
 <?php
+    include_once '../Controller/usuarioController.php'; 
 
     if(session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -19,25 +20,30 @@
         <div class="sidebar">
    
             <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                    Mantenimientos
-                    <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="consultarUsuarios.php" class="nav-link">
-                            <i class="fa fa-users nav-icon"></i>
-                            <p>Usuarios</p>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">'; 
+                
+                if($_SESSION["RolUsuario"] == 2) 
+                {
+                    echo '<li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                            Mantenimientos
+                            <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
-                    </li>
-                </ul>
-                </li>
-            </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="consultarUsuarios.php" class="nav-link">
+                                    <i class="fa fa-users nav-icon"></i>
+                                    <p>Usuarios</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>';
+                }
+
+            echo '</ul>
             </nav>
         </div>
         </aside>
@@ -46,6 +52,11 @@
 
     function MostrarNav()
     {
+        if(!isset($_SESSION["NombreUsuario"]))
+        {
+           header("location: login.php");
+        }
+
         echo '
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
@@ -66,7 +77,7 @@
             </form>
         
             <ul class="navbar-nav ml-auto">
-             <div class="form-inline ml-3">' . $_SESSION["NombreUsuario"] . '</div>
+            <div class="form-inline ml-3">' . $_SESSION["NombreUsuario"] . '</div>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-user"></i>
@@ -82,9 +93,12 @@
                 </a>
                 <div class="dropdown-divider"></div>
 
-                <a onclick="CerrarSesion();" class="dropdown-item">
-                     <i class="fas fa-file mr-2"></i> Salir
-                </a>
+                <form action="" method="POST">
+                    <button id="btnCerrarSesion" name="btnCerrarSesion" type="submit" class="dropdown-item">
+                        <i class="fas fa-file mr-2"></i> Salir
+                    </button>
+                </form>
+
             </li>
             </ul>
         </nav>
@@ -108,13 +122,23 @@
         ';
     }
 
+    function HeadJS()
+    {
+        echo '
+        <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="dist/js/adminlte.min.js"></script>
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
+        ';
+    }
+
+    function ValidarRolAdministrador()
+    {
+        if($_SESSION["RolUsuario"] != 2)
+        {
+            header("location: home.php");
+        } 
+    }
+
 ?>
-
-<script>
-
-function CerrarSesion()
-{
-    alert("HOLA");
-}
-
-</script>

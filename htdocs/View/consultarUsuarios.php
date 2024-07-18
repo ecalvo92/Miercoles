@@ -1,5 +1,7 @@
-<?php include_once 'layoutInterno.php';
-      include_once '../Controller/usuarioController.php'; 
+<?php   include_once 'layoutInterno.php';
+        include_once '../Controller/usuarioController.php';
+      
+        ValidarRolAdministrador();
 ?>
 
 <!DOCTYPE html>
@@ -96,12 +98,9 @@
         </div>
     </div>
 
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="dist/js/adminlte.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
-
+    <?php 
+        HeadJS();
+    ?>
     <script>
         $(document).on("click", ".AbrirModal", function() {
             $("#lblNombre").text($(this).attr('data-name'));
@@ -112,11 +111,10 @@
             $("#tablaUsuarios").DataTable({
                 language : {
                     url: 'dist/language.json'
-                }
+                },
+                columnDefs:  [{ type: 'string', target: [0]}]
             });
         });
-    </script>
-    
+    </script>    
 </body>
-
 </html>

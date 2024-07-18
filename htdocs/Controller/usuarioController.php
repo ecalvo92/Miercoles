@@ -34,6 +34,7 @@
             $datos = mysqli_fetch_array($respuesta);
             $_SESSION["NombreUsuario"] = $datos["Nombre"];
             $_SESSION["ConsecutivoUsuario"] = $datos["Consecutivo"];
+            $_SESSION["RolUsuario"] = $datos["IdRol"];
             header("location: ../View/home.php");
         }
         else
@@ -121,5 +122,12 @@
             $_POST["msj"] = "No se ha podido inactivar la información del usuario.";
         }
     }
+
+    if(isset($_POST["btnCerrarSesion"]))
+    {
+        session_destroy();
+        header("location: ../View/login.php");
+    }
+
 
 ?>
