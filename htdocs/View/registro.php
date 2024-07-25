@@ -27,6 +27,8 @@
                 ?>
 
                 <form action="" method="post">
+
+                <Label>Identificación</Label>
                     <div class="input-group mb-3">
                         <input id="txtIdentificacion" name="txtIdentificacion" type="text" class="form-control"
                             placeholder="Identificación" onkeyup="ConsultarNombre('btnRegistrarUsuario');" required>
@@ -37,6 +39,7 @@
                         </div>
                     </div>
 
+                    <Label>Nombre</Label>
                     <div class="input-group mb-3">
                         <input id="txtNombre" name="txtNombre" type="text" readOnly class="form-control"
                             placeholder="Nombre" required>
@@ -47,6 +50,7 @@
                         </div>
                     </div>
 
+                    <Label>Correo Electrónico</Label>
                     <div class="input-group mb-3">
                         <input type="email" id="txtEmail" name="txtEmail" class="form-control"
                             placeholder="Correo Electrónico" required>
@@ -57,6 +61,7 @@
                         </div>
                     </div>
 
+                    <Label>Contraseña</Label>
                     <div class="input-group mb-3">
                         <input type="password" id="txtPassword" name="txtPassword" class="form-control"
                             placeholder="Contraseña" required>

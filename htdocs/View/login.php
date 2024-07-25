@@ -26,6 +26,8 @@
                 ?>
 
                 <form action="" method="post">
+
+                    <Label>Correo Electrónico</Label>
                     <div class="input-group mb-3">
                         <input type="email" id="txtEmail" name="txtEmail" class="form-control" 
                             placeholder="Correo Electrónico" required>
@@ -35,6 +37,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <Label>Contraseña</Label>
                     <div class="input-group mb-3">
                         <input type="password" id="txtPassword" name="txtPassword" class="form-control" 
                             placeholder="Contraseña" required>
@@ -44,6 +48,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-7">
 
@@ -53,6 +58,7 @@
                                 class="btn btn-primary btn-block">Procesar</button>
                         </div>
                     </div>
+                    
                 </form>
 
                 <p class="mb-1">

@@ -27,10 +27,10 @@
         return $respuesta;
     }
 
-    function ActualizarContrasennaTemporal($Consecutivo, $Contrasenna)
+    function ActualizarContrasenna($Consecutivo, $Contrasenna, $EsTemporal)
     {
         $conexion = AbrirBaseDatos();
-        $sentencia = "CALL ActualizarContrasennaTemporal('$Consecutivo', '$Contrasenna')";
+        $sentencia = "CALL ActualizarContrasenna('$Consecutivo', '$Contrasenna', '$EsTemporal')";
         $respuesta = $conexion -> query($sentencia);
         CerrarBaseDatos($conexion);
         return $respuesta;

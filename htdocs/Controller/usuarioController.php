@@ -52,7 +52,7 @@
         {
             $datos = mysqli_fetch_array($respuesta);
             $codigo = GenerarCodigo();
-            $resp = ActualizarContrasennaTemporal($datos["Consecutivo"],$codigo);
+            $resp = ActualizarContrasenna($datos["Consecutivo"],$codigo,true);
 
             if($resp == true)
             {
@@ -189,6 +189,31 @@
         {
             $_POST["msj"] = "No se ha podido actualizar la información de su perfil.";
         }
+    }
+
+    if(isset($_POST["btnActualizarContrasenna"]))
+    {
+        $PasswordNueva = $_POST["txtPasswordNueva"];
+        $PasswordConfirmar = $_POST["txtPasswordConfirmar"];
+    
+        if($PasswordNueva != $PasswordConfirmar)
+        {
+            $_POST["msj"] = "Las contraseñas ingresadas no coinciden.";
+        }
+        else
+        {
+            $respuesta = ActualizarContrasenna($_SESSION["ConsecutivoUsuario"], $PasswordNueva, false);
+
+            if($respuesta == true)
+            {
+                header("location: ../View/home.php");
+            }
+            else
+            {
+                $_POST["msj"] = "No se ha podido actualizar la información de su contraseña.";
+            }
+        }
+
     }
 
 ?>

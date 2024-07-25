@@ -26,6 +26,8 @@
                 ?>
 
                 <form action="" method="post">
+
+                    <Label>Identificación</Label>
                     <div class="input-group mb-3">
                     <input id="txtIdentificacion" name="txtIdentificacion" type="text" class="form-control"
                             placeholder="Identificación" required>
