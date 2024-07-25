@@ -84,7 +84,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                <a href="actualizarPerfil.php" class="dropdown-item">
                     <i class="fas fa-envelope mr-2"></i> Perfil
                 </a>
                 <div class="dropdown-divider"></div>

@@ -146,7 +146,49 @@
         $Correo = $_POST["txtEmail"];
         $IdRol = $_POST["selectRol"];
 
-        ActualizarUsuario($Consecutivo,$Identificacion,$pNombre,$Correo,$IdRol);
+        if($IdRol == NULL)
+        {
+            $IdRol = -1;
+        }
+
+        $respuesta = ActualizarUsuario($Consecutivo,$Identificacion,$pNombre,$Correo,$IdRol);
+
+        if($respuesta == true)
+        {
+             //lo llevo a la pantalla de usuarios para revisar el cambio del usuario actualizado
+            header("location: ../View/consultarUsuarios.php");
+        }
+        else
+        {
+            $_POST["msj"] = "No se ha podido actualizar la información del usuario.";
+        }
+    }
+
+    if(isset($_POST["btnActualizarPerfil"]))
+    {
+        $Consecutivo = $_POST["txtConsecutivo"];
+        $Identificacion = $_POST["txtIdentificacion"];
+        $pNombre = $_POST["txtNombre"];
+        $Correo = $_POST["txtEmail"];
+        $IdRol = $_POST["selectRol"];
+
+        if($IdRol == NULL)
+        {
+            $IdRol = -1;
+        }
+
+        $respuesta = ActualizarUsuario($Consecutivo,$Identificacion,$pNombre,$Correo,$IdRol);
+
+        if($respuesta == true)
+        {
+            //lo llevo a la pantalla principal y actualizo el nombre de la sesión del usuario logueado
+            $_SESSION["NombreUsuario"] = $_POST["txtNombre"];
+            header("location: ../View/home.php");
+        }
+        else
+        {
+            $_POST["msj"] = "No se ha podido actualizar la información de su perfil.";
+        }
     }
 
 ?>

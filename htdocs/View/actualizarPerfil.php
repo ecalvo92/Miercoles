@@ -2,7 +2,7 @@
       include_once '../Controller/usuarioController.php';
       include_once '../Controller/rolController.php'; 
 
-      $datos = ConsultarUsuario($_GET["q"]);
+      $datos = ConsultarUsuario($_SESSION["ConsecutivoUsuario"]);
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
 
                 <div class="content-header">
                     <div class="container-fluid">
-                        <h1 class="m-0 text-dark">Datos del usuario</h1>
+                        <h1 class="m-0 text-dark">Datos del perfil</h1>
                         <br />
                         <div class="row mb-2">
                             <div class="col-sm-2">
@@ -81,7 +81,7 @@
 
                                     <Label>Perfil</Label>
                                     <div class="input-group mb-3">
-                                        <select id="selectRol" name="selectRol" class="form-control" required>
+                                        <select disabled id="selectRol" name="selectRol" class="form-control" required>
                                             <?php ConsultarRoles($datos["IdRol"]); ?>
                                         </select>
                                     </div>
@@ -91,7 +91,7 @@
 
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <button type="submit" id="btnActualizarUsuario" name="btnActualizarUsuario"
+                                            <button type="submit" id="btnActualizarPerfil" name="btnActualizarPerfil"
                                                 class="btn btn-primary btn-block">Procesar</button>
                                         </div>
                                     </div>
