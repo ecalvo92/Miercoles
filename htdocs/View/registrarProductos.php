@@ -1,8 +1,6 @@
 <?php include_once 'layoutInterno.php';
       include_once '../Controller/usuarioController.php';
       include_once '../Controller/rolController.php'; 
-
-      $datos = ConsultarUsuario($_GET["q"]);
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +23,7 @@
 
                 <div class="content-header">
                     <div class="container-fluid">
-                        <h1 class="m-0 text-dark">Datos del usuario</h1>
+                        <h1 class="m-0 text-dark">Datos del producto</h1>
                         <br />
                         <div class="row mb-2">
                             <div class="col-sm-2">
@@ -41,14 +39,14 @@
 
                                 <form action="" method="post">
 
-                                    <input id="txtConsecutivo" name="txtConsecutivo" type="hidden" value="<?php echo $datos["Consecutivo"] ?>">
+                                    <input id="txtConsecutivo" name="txtConsecutivo" type="hidden" value="">
 
                                     <Label>Identificación</Label>
                                     <div class="input-group mb-3">
                                         <input id="txtIdentificacion" name="txtIdentificacion" type="text"
                                             class="form-control" placeholder="Identificación"
                                             onkeyup="ConsultarNombre('btnActualizarUsuario');" required
-                                            value="<?php echo $datos["Identificacion"] ?>">
+                                            value="">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-user"></span>
@@ -59,7 +57,7 @@
                                     <Label>Nombre</Label>
                                     <div class="input-group mb-3">
                                         <input id="txtNombre" name="txtNombre" type="text" readOnly class="form-control"
-                                            placeholder="Nombre" required value="<?php echo $datos["Nombre"] ?>">
+                                            placeholder="Nombre" required value="">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-user"></span>
@@ -71,7 +69,7 @@
                                     <div class="input-group mb-3">
                                         <input type="email" id="txtEmail" name="txtEmail" class="form-control"
                                             placeholder="Correo Electrónico" required
-                                            value="<?php echo $datos["Correo"] ?>">
+                                            value="">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-envelope"></span>

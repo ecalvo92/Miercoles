@@ -18,6 +18,58 @@ USE `miercoles_bd`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categoria` (
+  `IdCategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `NombreCategoria` varchar(100) NOT NULL,
+  PRIMARY KEY (`IdCategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoria`
+--
+
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `producto`
+--
+
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `producto` (
+  `IdProducto` int(11) NOT NULL,
+  `Cantidad` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `IdCategoria` int(11) NOT NULL,
+  `Precio` decimal(10,2) NOT NULL,
+  `Imagen` varchar(255) NOT NULL,
+  PRIMARY KEY (`IdProducto`),
+  KEY `FK_Id_Categoria` (`IdCategoria`),
+  CONSTRAINT `FK_Id_Categoria` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria` (`IdCategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto`
+--
+
+LOCK TABLES `producto` WRITE;
+/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rol`
 --
 
@@ -28,7 +80,7 @@ CREATE TABLE `rol` (
   `IdRol` int(11) NOT NULL AUTO_INCREMENT,
   `NombreRol` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IdRol`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +89,7 @@ CREATE TABLE `rol` (
 
 LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-INSERT INTO `rol` VALUES (1,'Usuario'),(2,'Administrador');
+INSERT INTO `rol` VALUES (1,'Usuario'),(2,'Administrador'),(3,'Prueba');
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,7 +123,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'304590415','CALVO CASTILLO EDUARDO JOSE','ecalvo90415@ufide.ac.cr','E5EAC6',_binary '\0',1,_binary ''),(3,'402300855','HERNANDEZ MIRANDA FIORELLA','fhernandez00855@ufide.ac.cr','EGXV5W',_binary '',2,_binary ''),(4,'119270307','VARGAS RODRIGUEZ ROBERTO FERNANDO','rvargas70307@ufide.ac.cr','70307',_binary '',1,_binary '\0'),(5,'155828284810','DAVILA MENDEZ BRYAN ANDRES','bdavila28481@ufide.ac.cr','1234',_binary '',2,_binary '');
+INSERT INTO `usuario` VALUES (2,'703220262','RINCON GONZALEZ MATEO','mrincon20262@ufide.ac.cr','DSJ26S',_binary '',1,_binary ''),(3,'402300855','HERNANDEZ MIRANDA FIORELLA','fhernandez00855@ufide.ac.cr','Saprissa',_binary '',2,_binary '\0'),(4,'119270307','VARGAS RODRIGUEZ ROBERTO FERNANDO','rvargas70307@ufide.ac.cr','70307',_binary '',2,_binary '\0'),(5,'155828284810','DAVILA MENDEZ BRYAN ANDRES','bdavila28481@ufide.ac.cr','1234',_binary '',1,_binary '');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +134,7 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'miercoles_bd'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `ActualizarContrasennaTemporal` */;
+/*!50003 DROP PROCEDURE IF EXISTS `ActualizarContrasenna` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -92,12 +144,12 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarContrasennaTemporal`(`pConsecutivo` int,`pContrasenna` varchar(10))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarContrasenna`(`pConsecutivo` int,`pContrasenna` varchar(10), `pTemporal` BIT)
 BEGIN
 
 	UPDATE 	usuario
     SET 	Contrasenna = `pContrasenna`,
-			ContrasennaTemporal = 1
+			ContrasennaTemporal = `pTemporal`
 	WHERE 	Consecutivo = `pConsecutivo`;
 
 END ;;
@@ -124,7 +176,7 @@ BEGIN
     SET 	Identificacion = `pIdentificacion`,
 			Nombre = `pNombre`,
             Correo = `pCorreo`,
-            IdRol = `pIdRol`
+            IdRol = CASE WHEN `pIdRol` != -1 THEN `pIdRol` ELSE IdRol END
 	WHERE 	Consecutivo = `pConsecutivo`;
 
 END ;;
@@ -151,6 +203,28 @@ BEGIN
 	UPDATE USUARIO
     SET Estado = CASE WHEN Estado = 1 THEN 0 ELSE 1 END
     WHERE Consecutivo = pConsecutivo;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarRoles` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarRoles`()
+BEGIN
+
+	SELECT  IdRol, NombreRol
+	FROM 	`miercoles_bd`.`rol`;
 
 END ;;
 DELIMITER ;
@@ -309,4 +383,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-17 20:58:34
+-- Dump completed on 2024-07-24 20:59:35
