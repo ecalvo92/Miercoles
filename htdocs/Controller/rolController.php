@@ -3,7 +3,8 @@
     function ConsultarRoles($IdRol)
     {
         $respuesta = ConsultarRolesBD();
-
+        echo "<option value=''> Seleccione </option>";
+        
         if($respuesta -> num_rows > 0)
         {
             while ($row = mysqli_fetch_array($respuesta)) 

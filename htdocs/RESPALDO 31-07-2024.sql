@@ -28,7 +28,7 @@ CREATE TABLE `categoria` (
   `IdCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `NombreCategoria` varchar(100) NOT NULL,
   PRIMARY KEY (`IdCategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (1,'Procesadores'),(2,'Periféricos'),(3,'Memorias');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -48,7 +49,7 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `producto` (
-  `IdProducto` int(11) NOT NULL,
+  `IdProducto` int(11) NOT NULL AUTO_INCREMENT,
   `Cantidad` int(11) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `IdCategoria` int(11) NOT NULL,
@@ -57,7 +58,7 @@ CREATE TABLE `producto` (
   PRIMARY KEY (`IdProducto`),
   KEY `FK_Id_Categoria` (`IdCategoria`),
   CONSTRAINT `FK_Id_Categoria` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria` (`IdCategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +67,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,10,'Memoria Ram 32',3,16750.50,'/View/Images/19-113-791-03.png');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +91,7 @@ CREATE TABLE `rol` (
 
 LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-INSERT INTO `rol` VALUES (1,'Usuario'),(2,'Administrador'),(3,'Prueba');
+INSERT INTO `rol` VALUES (1,'Usuario'),(2,'Administrador');
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +125,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'703220262','RINCON GONZALEZ MATEO','mrincon20262@ufide.ac.cr','DSJ26S',_binary '',1,_binary ''),(3,'402300855','HERNANDEZ MIRANDA FIORELLA','fhernandez00855@ufide.ac.cr','Saprissa',_binary '',2,_binary '\0'),(4,'119270307','VARGAS RODRIGUEZ ROBERTO FERNANDO','rvargas70307@ufide.ac.cr','70307',_binary '',2,_binary '\0'),(5,'155828284810','DAVILA MENDEZ BRYAN ANDRES','bdavila28481@ufide.ac.cr','1234',_binary '',1,_binary '');
+INSERT INTO `usuario` VALUES (2,'703220262','RINCON GONZALEZ MATEO','mrincon20262@ufide.ac.cr','DSJ26S',_binary '',1,_binary ''),(3,'402300855','HERNANDEZ MIRANDA FIORELLA','fhernandez00855@ufide.ac.cr','123',_binary '',2,_binary '\0'),(4,'119270307','VARGAS RODRIGUEZ ROBERTO FERNANDO','rvargas70307@ufide.ac.cr','70307',_binary '',1,_binary '\0'),(5,'155828284810','DAVILA MENDEZ BRYAN ANDRES','bdavila28481@ufide.ac.cr','1234',_binary '',1,_binary '');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,6 +205,88 @@ BEGIN
 	UPDATE USUARIO
     SET Estado = CASE WHEN Estado = 1 THEN 0 ELSE 1 END
     WHERE Consecutivo = pConsecutivo;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarCategorias` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarCategorias`()
+BEGIN
+
+	SELECT `categoria`.`IdCategoria`,
+		`categoria`.`NombreCategoria`
+	FROM `miercoles_bd`.`categoria`;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarProducto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarProducto`(`pConsecutivo` INT)
+BEGIN
+
+	SELECT  IdProducto,
+			Cantidad,
+			Nombre,
+			p.IdCategoria,
+			Precio,
+			Imagen,
+			c.NombreCategoria
+		FROM producto p
+        INNER JOIN categoria c ON p.IdCategoria = c.IdCategoria
+        WHERE IdProducto = pConsecutivo;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarProductos` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarProductos`()
+BEGIN
+
+	SELECT  IdProducto,
+			Cantidad,
+			Nombre,
+			p.IdCategoria,
+			Precio,
+			Imagen,
+			c.NombreCategoria
+		FROM producto p
+        INNER JOIN categoria c ON p.IdCategoria = c.IdCategoria;
 
 END ;;
 DELIMITER ;
@@ -351,6 +435,33 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `RegistrarProducto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarProducto`(
+`pNombre` VARCHAR(255),
+`pPrecio` DECIMAL(10,2),
+`pCantidad` INT,
+`pIdCategoria` INT,
+`pImagen` VARCHAR(255))
+BEGIN
+
+	INSERT INTO producto(Cantidad,Nombre,IdCategoria,Precio,Imagen)
+	VALUES (pCantidad,pNombre,pIdCategoria,pPrecio,pImagen);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `RegistrarUsuario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -383,4 +494,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-24 20:59:35
+-- Dump completed on 2024-07-31 21:56:02

@@ -1,6 +1,8 @@
 <?php include_once 'layoutInterno.php';
       include_once '../Controller/productoController.php';
       include_once '../Controller/categoriaController.php'; 
+
+      $datos = ConsultarProducto($_GET["q"]);
 ?>
 
 <!DOCTYPE html>
@@ -39,10 +41,12 @@
 
                                 <form action="" method="post" enctype="multipart/form-data">
 
+                                <input id="txtIdProducto" name="txtIdProducto" type="hidden" value="<?php echo $datos["IdProducto"] ?>">
+
                                     <Label>Nombre</Label>
                                     <div class="input-group mb-3">
                                         <input id="txtNombre" name="txtNombre" type="text"
-                                            class="form-control" placeholder="Nombre" required value="">
+                                            class="form-control" placeholder="Nombre" required value="<?php echo $datos["Nombre"] ?>">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-tag"></span>
@@ -53,7 +57,7 @@
                                     <Label>Precio</Label>
                                     <div class="input-group mb-3">
                                         <input id="txtPrecio" name="txtPrecio" type="text" class="form-control"
-                                            placeholder="Precio" required value="" onkeypress="return SoloMontos(event, this)">
+                                            placeholder="Precio" required value="<?php echo $datos["Precio"] ?>" onkeypress="return SoloMontos(event, this)">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-credit-card"></span>
@@ -64,7 +68,7 @@
                                     <Label>Cantidad</Label>
                                     <div class="input-group mb-3">
                                         <input type="text" id="txtCantidad" name="txtCantidad" class="form-control"
-                                            placeholder="Cantidad" required value="" onkeypress="return SoloNumeros(event)">
+                                            placeholder="Cantidad" required value="<?php echo $datos["Cantidad"] ?>" onkeypress="return SoloNumeros(event)">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-inbox"></span>
@@ -75,14 +79,19 @@
                                     <Label>Categoría</Label>
                                     <div class="input-group mb-3">
                                         <select id="selectCategoria" name="selectCategoria" class="form-control" required>
-                                            <?php ConsultarCategorias(); ?>
+                                            <?php ConsultarCategoriasEditar($datos["IdCategoria"]) ?>
                                         </select>
+                                    </div>
+
+                                    <Label>Imagen Actual</Label>
+                                    <div class="input-group input-group-outline mb-3">
+                                        <img width='200' height='150' src="<?php echo $datos["Imagen"] ?>"></img>
                                     </div>
 
                                     <Label>Imagen</Label>
                                     <div class="input-group input-group-outline mb-3">
                                         <input id="txtImagen" name="txtImagen" type="file" class="form-control"
-                                            placeholder="Imagen" required value="" accept="image/png, image/jpg, image/jpeg">
+                                            placeholder="Imagen" value="" accept="image/png, image/jpg, image/jpeg">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-camera"></span>
@@ -95,7 +104,7 @@
 
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <button type="submit" id="btnRegistrarProducto" name="btnRegistrarProducto"
+                                            <button type="submit" id="btnActualizarProducto" name="btnActualizarProducto"
                                                 class="btn btn-primary btn-block">Procesar</button>
                                         </div>
                                     </div>

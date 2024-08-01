@@ -36,7 +36,7 @@
                                     }
                                 ?>
 
-                                <table id="tablaUsuarios" class="table table-hover">
+                                <table id="tablaUsuarios" class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Identificación</th>
@@ -112,7 +112,7 @@
                 language : {
                     url: 'dist/language.json'
                 },
-                columnDefs:  [{ type: 'string', target: [0]}]
+                columnDefs:  [{ type: 'string', target: [0,1,2,3,4,5]}]
             });
         });
     </script>    

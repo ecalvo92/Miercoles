@@ -43,20 +43,20 @@
                                 </div>
                                 <br/>
 
-                                <table id="tablaProductos" class="table table-hover">
+                                <table id="tablaProductos" class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Identificación</th>
                                             <th>Nombre</th>
-                                            <th>Correo</th>
-                                            <th>Estado</th>
-                                            <th>Rol</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            <th>Categoría</th>
+                                            <th>Imagen</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            
+                                            ConsultarProductos();
                                         ?>
                                     </tbody>
                                 </table>
@@ -79,47 +79,16 @@
         </aside>
     </div>
 
-    <div class="modal fade" id="ModalUsuarios" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width:600px;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" id="txtConsecutivo" name="txtConsecutivo">
-                        ¿Desea cambiar el estado del usuario <label id="lblNombre"></label> ?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="btnCambiarEstadoUsuario"
-                            name="btnCambiarEstadoUsuario">Procesar</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
     <?php 
         HeadJS();
     ?>
     <script>
-        $(document).on("click", ".AbrirModal", function() {
-            $("#lblNombre").text($(this).attr('data-name'));
-            $("#txtConsecutivo").val($(this).attr('data-id'));
-        });
-
         $(document).ready(function(){
             $("#tablaProductos").DataTable({
                 language : {
                     url: 'dist/language.json'
                 },
-                columnDefs:  [{ type: 'string', target: [0]}]
+                columnDefs:  [{ type: 'string', target: [0,1,2,3,4,5]}]
             });
         });
     </script>    
