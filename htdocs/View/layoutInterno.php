@@ -1,5 +1,8 @@
 <?php
     include_once '../Controller/usuarioController.php'; 
+    include_once '../Controller/carritoController.php'; 
+      
+    ConsultarResumenCarrito();
 
     if(session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -121,16 +124,8 @@
             </li>
             </ul>
         
-            <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-                </div>
-            </div>
-            </form>
+            <form class="form-inline ml-3"><i class="fa fa-tags"></i> &nbsp;&nbsp;' . $_SESSION["Cantidad"] . 
+            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-credit-card"></i> &nbsp;&nbsp;' . $_SESSION["SubTotal"] . ' + IVA</form>           
         
             <ul class="navbar-nav ml-auto">
             <div class="form-inline ml-3">' . $_SESSION["NombreUsuario"] . '</div>
@@ -174,6 +169,7 @@
                 <link rel="stylesheet" href="dist/css/styles.css">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
                 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.css">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css">
             </head>
         ';
     }
@@ -186,6 +182,7 @@
         <script src="dist/js/adminlte.min.js"></script>
         <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
         <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
         ';
     }
 

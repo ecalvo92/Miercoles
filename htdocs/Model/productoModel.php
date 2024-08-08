@@ -18,6 +18,15 @@ function RegistrarProducto($Nombre,$Precio,$Cantidad,$Categoria,$Imagen)
     return $respuesta;
 }
 
+function ActualizarProducto($IdProducto,$Nombre,$Precio,$Cantidad,$Categoria,$Imagen)
+{
+    $conexion = AbrirBaseDatos();
+    $sentencia = "CALL ActualizarProducto('$IdProducto','$Nombre','$Precio','$Cantidad','$Categoria','$Imagen')";
+    $respuesta = $conexion -> query($sentencia);
+    CerrarBaseDatos($conexion);
+    return $respuesta;
+}
+
 function ConsultarProductoBD($Consecutivo)  
 {
     $conexion = AbrirBaseDatos();

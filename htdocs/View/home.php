@@ -1,4 +1,6 @@
-<?php include_once 'layoutInterno.php'; ?>
+<?php include_once 'layoutInterno.php';
+      include_once '../Controller/productoController.php'; 
+      ?>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +19,22 @@
 
         <div class="content-wrapper">
             <section class="content">
+
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <br />
+
+                                <?php
+                                    ConsultarProductosParaComprar();
+                                ?>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </section>
         </div>
 
@@ -31,5 +49,7 @@
     <?php 
         HeadJS();
     ?>
+    <script src="dist/js/productos.js"></script>
 </body>
+
 </html>
